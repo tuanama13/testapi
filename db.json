@@ -1,4 +1,6 @@
-[{
+{
+  "product":
+  [{
   "id": 1,
   "first_name": "Lynda",
   "last_name": "Aylen",
@@ -24,3 +26,4 @@
   "last_name": "Mattheus",
   "email": "emattheus4@surveymonkey.com"
 }]
+}
