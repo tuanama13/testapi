@@ -50,5 +50,45 @@
 
             // return $stmt;
         }
+
+        public function create()
+        {
+            $query = 'INSERT INTO table_user SET 
+                email_user = :email_user,
+                password_user = :password_user,
+                name_user = :name_user,
+                tlp_user = :tlp_user,
+                address_user = :address_user,
+                api_key_user = :api_key_user,
+                hit = :hit';
+
+            $stmt = $this->conn->prepare($query);
+            
+            // Clean Data
+            $this->email_user = htmlspecialchars(strip_tags($this->email_user));
+            $this->password_user = htmlspecialchars(strip_tags($this->password_user));
+            $this->name_user = htmlspecialchars(strip_tags($this->name_user));
+            $this->tlp_user = htmlspecialchars(strip_tags($this->tlp_user));
+            $this->address_user = htmlspecialchars(strip_tags($this->address_user));
+            $this->api_key_user = htmlspecialchars(strip_tags($this->api_key_user));
+            $this->hit = htmlspecialchars(strip_tags($this->hit));
+
+            $stmt->bindParam(':email_user', $this->email_user);
+            $stmt->bindParam(':password_user', $this->password_user);
+            $stmt->bindParam(':name_user', $this->name_user);
+            $stmt->bindParam(':tlp_user', $this->tlp_user);
+            $stmt->bindParam(':address_user', $this->address_user);
+            $stmt->bindParam(':api_key_user', $this->api_key_user);
+            $stmt->bindParam(':hit', $this->hit);
+
+            
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            printf("Error: %s.\n", $stmt->execute());
+
+            return false;
+        }
     }
     
