@@ -1,7 +1,7 @@
 <?php
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Methods: POST');
+    header('Access-Control-Allow-Methods: PUT');
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization X-Requested-With ');
 
     include_once '../../config/Database.php';
@@ -14,6 +14,8 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
+    $user->id_user = $data->id_user; 
+
     $user->email_user = $data->email_user;
     $user->password_user = $data->password_user;
     $user->name_user = $data->name_user;
@@ -22,13 +24,13 @@
     $user->api_key_user = $data->api_key_user;
     $user->hit = $data->hit;
 
-    // Create User
-    if ($user->create()) {
+    // Update User
+    if ($user->update()) {
         echo json_encode(
-            array('message'=> 'User Created')
+            array('message'=> 'User Updated')
         );
     }else{
         echo json_encode(
-            array('message'=> 'User Not Created')
+            array('message'=> 'User Not Updated')
         );
     }

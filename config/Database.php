@@ -1,9 +1,9 @@
 <?php
     class Database{
-        private $host = 'localhost';
+        private $host = '139.99.114.112';
         private $db_name = 'ofieldwe_main';
-        private $username = 'root';
-        private $password = '';
+        private $username = 'ofieldwe_main';
+        private $password = 'ambrosius13';
         private $conn;
 
         public function connect()
