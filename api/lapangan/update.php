@@ -5,31 +5,30 @@
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization X-Requested-With ');
 
     include_once '../../config/Database.php';
-    include_once '../../models/Users.php';
+    include_once '../../models/Lapangans.php';
 
     $databae = new Database();
     $db = $databae->connect();
 
-    $user = new User($db);
+    $lapangan = new Lapangan($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $user->id_user = $data->id_user; 
-    $user->api_key_user = $data->api_key_user;
+    $lapangan->id_lapangan = $data->id_lapangan; 
+
+    $lapangan->id_mitra = $data->id_mitra;
+    $lapangan->harga_lapangan = $data->harga_lapangan;
+    $lapangan->foto_lapangan = $data->foto_lapangan;
+    $lapangan->nama_lapangan = $data->nama_lapangan;
     
-    $user->email_user = $data->email_user;
-    $user->password_user = $data->password_user;
-    $user->nama_user = $data->nama_user;
-    $user->kontak_user = $data->kontak_user;
     
-    
-      // Update User
-    if ($user->update()) {
+      // Update Lapangan
+    if ($lapangan->update()) {
         echo json_encode(
-            array('message'=> 'User Updated')
+            array('message'=> 'Lapangan Updated')
         );
     }else{
         echo json_encode(
-            array('message'=> 'User Not Updated')
+            array('message'=> 'Lapangan Not Updated')
         );
     }

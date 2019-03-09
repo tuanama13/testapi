@@ -5,28 +5,30 @@
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization X-Requested-With ');
 
     include_once '../../config/Database.php';
-    include_once '../../models/Users.php';
+    include_once '../../models/Mitras.php';
 
     $databae = new Database();
     $db = $databae->connect();
 
-    $user = new User($db);
+    $mitra = new Mitra($db);
 
     $data = json_decode(file_get_contents("php://input"));
     // api_key_user_ = hash('sha1', );
-    $user->email_user = $data->email_user;
-    $user->password_user = $data->password_user;
-    $user->nama_user = $data->nama_user;
-    $user->kontak_user = $data->kontak_user;
-    $user->api_key_user = hash('sha1', uniqid());
+    $mitra->email_mitra = $data->email_mitra;
+    $mitra->password_mitra = $data->password_mitra;
+    $mitra->nama_mitra = $data->nama_mitra;
+    $mitra->alamat_mitra = $data->alamat_mitra;
+    $mitra->kontak_mitra = $data->kontak_mitra;
+    $mitra->lat = $data->lat;
+    $mitra->lang = $data->lang;
 
     // Create User
-    if ($user->create()) {
+    if ($mitra->create()) {
         echo json_encode(
-            array('message'=> 'User Created')
+            array('message'=> 'Mitra Created')
         );
     }else{
         echo json_encode(
-            array('message'=> 'User Not Created')
+            array('message'=> 'Mitra Not Created')
         );
     }

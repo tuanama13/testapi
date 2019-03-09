@@ -18,11 +18,11 @@
         'id' => $user->id ,
         'email' => $user->email_user ,
         'password' => $user->password_user , 
-        'name' => $user->name_user ,   
-        'tlp' => $user->tlp_user ,
-        'address' => $user->address_user ,
-        'key' => $user->api_key_user ,
-        'hit' => $user->hit  
+        'nama' => $user->nama_user ,   
+        'kontak' => $user->kontak_user ,
+        'tgl_gabung' => $user->tgl_bergabung_user ,
+        'key' => $user->api_key_user
+        
     );
 
     print_r(json_encode($user_arr));

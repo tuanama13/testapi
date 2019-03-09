@@ -5,24 +5,24 @@
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization X-Requested-With ');
 
     include_once '../../config/Database.php';
-    include_once '../../models/Users.php';
+    include_once '../../models/Lapangans.php';
 
     $databae = new Database();
     $db = $databae->connect();
 
-    $user = new User($db);
+    $lapangan = new Lapangan($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $user->id_user = $data->id_user; 
+    $lapangan->id_lapangan = $data->id_lapangan; 
 
-    // Update User
-    if ($user->delete()) {
+    // Update lapangan
+    if ($lapangan->delete()) {
         echo json_encode(
-            array('message'=> 'User Deleted')
+            array('message'=> 'Lapangan Deleted')
         );
     }else{
         echo json_encode(
-            array('message'=> 'User Not Deleted')
+            array('message'=> 'Lapangan Not Deleted')
         );
     }

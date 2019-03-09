@@ -5,28 +5,27 @@
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization X-Requested-With ');
 
     include_once '../../config/Database.php';
-    include_once '../../models/Users.php';
+    include_once '../../models/Lapangans.php';
 
     $databae = new Database();
     $db = $databae->connect();
 
-    $user = new User($db);
+    $lapangan = new Lapangan($db);
 
     $data = json_decode(file_get_contents("php://input"));
     // api_key_user_ = hash('sha1', );
-    $user->email_user = $data->email_user;
-    $user->password_user = $data->password_user;
-    $user->nama_user = $data->nama_user;
-    $user->kontak_user = $data->kontak_user;
-    $user->api_key_user = hash('sha1', uniqid());
+    $lapangan->id_mitra = $data->id_mitra;
+    $lapangan->harga_lapangan = $data->harga_lapangan;
+    $lapangan->foto_lapangan = $data->foto_lapangan;
+    $lapangan->nama_lapangan = $data->nama_lapangan;
 
     // Create User
-    if ($user->create()) {
+    if ($lapangan->create()) {
         echo json_encode(
-            array('message'=> 'User Created')
+            array('message'=> 'Lapangan Created')
         );
     }else{
         echo json_encode(
-            array('message'=> 'User Not Created')
+            array('message'=> 'Lapangan Not Created')
         );
     }

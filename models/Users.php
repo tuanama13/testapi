@@ -8,11 +8,10 @@
         public $id_user;
         public $email_user;
         public $password_user;
-        public $name_user;
-        public $tlp_user;
-        public $address_user;
+        public $nama_user;
+        public $kontak_user;
+        public $tgl_bergabung_user;
         public $api_key_user;
-        public $hit;
 
 
         public function __construct($db)
@@ -22,7 +21,7 @@
 
         public function read()
         {
-            $query = 'SELECT * FROM table_user WHERE hit != 0';
+            $query = "SELECT * FROM table_user";
 
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
@@ -42,11 +41,10 @@
 
             $this->email_user = $row['email_user'];
             $this->password_user = $row['password_user'];
-            $this->name_user = $row['name_user'];
-            $this->tlp_user = $row['tlp_user'];
-            $this->address_user = $row['address_user'];
+            $this->nama_user = $row['nama_user'];
+            $this->kontak_user = $row['kontak_user'];
+            $this->tgl_bergabung_user = $row['tgl_bergabung_user'];
             $this->api_key_user = $row['api_key_user'];
-            $this->hit = $row['hit'];
 
             // return $stmt;
         }
@@ -56,31 +54,25 @@
             $query = 'INSERT INTO table_user SET 
                 email_user = :email_user,
                 password_user = :password_user,
-                name_user = :name_user,
-                tlp_user = :tlp_user,
-                address_user = :address_user,
-                api_key_user = :api_key_user,
-                hit = :hit';
+                nama_user = :nama_user,
+                kontak_user = :kontak_user,
+                api_key_user = :api_key_user';
 
             $stmt = $this->conn->prepare($query);
             
             // Clean Data
             $this->email_user = htmlspecialchars(strip_tags($this->email_user));
             $this->password_user = htmlspecialchars(strip_tags($this->password_user));
-            $this->name_user = htmlspecialchars(strip_tags($this->name_user));
-            $this->tlp_user = htmlspecialchars(strip_tags($this->tlp_user));
-            $this->address_user = htmlspecialchars(strip_tags($this->address_user));
+            $this->nama_user = htmlspecialchars(strip_tags($this->nama_user));
+            $this->kontak_user = htmlspecialchars(strip_tags($this->kontak_user));
             $this->api_key_user = htmlspecialchars(strip_tags($this->api_key_user));
-            $this->hit = htmlspecialchars(strip_tags($this->hit));
 
             $stmt->bindParam(':email_user', $this->email_user);
             $stmt->bindParam(':password_user', $this->password_user);
-            $stmt->bindParam(':name_user', $this->name_user);
-            $stmt->bindParam(':tlp_user', $this->tlp_user);
-            $stmt->bindParam(':address_user', $this->address_user);
+            $stmt->bindParam(':nama_user', $this->nama_user);
+            $stmt->bindParam(':kontak_user', $this->kontak_user);
             $stmt->bindParam(':api_key_user', $this->api_key_user);
-            $stmt->bindParam(':hit', $this->hit);
-
+            
             
             if ($stmt->execute()) {
                 return true;
@@ -97,34 +89,29 @@
                 SET 
                     email_user = :email_user,
                     password_user = :password_user,
-                    name_user = :name_user,
-                    tlp_user = :tlp_user,
-                    address_user = :address_user,
-                    api_key_user = :api_key_user,
-                    hit = :hit
+                    nama_user = :nama_user,
+                    kontak_user = :kontak_user     
+                    
                 WHERE 
-                    id_user = :id';
+                    id_user = :id AND
+                    api_key_user = :api_key_user ';
 
             $stmt = $this->conn->prepare($query);
             
             // Clean Data
             $this->email_user = htmlspecialchars(strip_tags($this->email_user));
             $this->password_user = htmlspecialchars(strip_tags($this->password_user));
-            $this->name_user = htmlspecialchars(strip_tags($this->name_user));
-            $this->tlp_user = htmlspecialchars(strip_tags($this->tlp_user));
-            $this->address_user = htmlspecialchars(strip_tags($this->address_user));
-            $this->api_key_user = htmlspecialchars(strip_tags($this->api_key_user));
-            $this->hit = htmlspecialchars(strip_tags($this->hit));
+            $this->nama_user = htmlspecialchars(strip_tags($this->nama_user));
+            $this->kontak_user = htmlspecialchars(strip_tags($this->kontak_user));   
             $this->id_user = htmlspecialchars(strip_tags($this->id_user));
+            $this->api_key_user = htmlspecialchars(strip_tags($this->api_key_user));
 
             $stmt->bindParam(':email_user', $this->email_user);
             $stmt->bindParam(':password_user', $this->password_user);
-            $stmt->bindParam(':name_user', $this->name_user);
-            $stmt->bindParam(':tlp_user', $this->tlp_user);
-            $stmt->bindParam(':address_user', $this->address_user);
-            $stmt->bindParam(':api_key_user', $this->api_key_user);
-            $stmt->bindParam(':hit', $this->hit);
-            $stmt->bindParam(':id', $this->id_user); 
+            $stmt->bindParam(':nama_user', $this->nama_user);
+            $stmt->bindParam(':kontak_user', $this->kontak_user);
+            $stmt->bindParam(':id', $this->id_user);
+            $stmt->bindParam(':api_key_user', $this->api_key_user); 
 
             
             if ($stmt->execute()) {
@@ -146,7 +133,7 @@
             
             $this->id_user = htmlspecialchars(strip_tags($this->id_user));
 
-            $stmt->bindParam(':id', $this->id_user); 
+            $stmt->bindParam(':id', $this->id_user,PDO::PARAM_INT); 
 
             if ($stmt->execute()) {
                 return true;

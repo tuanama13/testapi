@@ -5,24 +5,24 @@
     header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization X-Requested-With ');
 
     include_once '../../config/Database.php';
-    include_once '../../models/Users.php';
+    include_once '../../models/Mitras.php';
 
     $databae = new Database();
     $db = $databae->connect();
 
-    $user = new User($db);
+    $mitra = new Mitra($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $user->id_user = $data->id_user; 
+    $mitra->id_mitra = $data->id_mitra; 
 
-    // Update User
-    if ($user->delete()) {
+    // Delete Mitra
+    if ($mitra->delete()) {
         echo json_encode(
-            array('message'=> 'User Deleted')
+            array('message'=> 'Mitra Deleted')
         );
     }else{
         echo json_encode(
-            array('message'=> 'User Not Deleted')
+            array('message'=> 'Mitra Not Deleted')
         );
     }

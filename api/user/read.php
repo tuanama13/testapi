@@ -1,4 +1,4 @@
-    <?php
+<?php
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
 
@@ -25,17 +25,16 @@
                 'id' => $id_user ,
                 'email' => $email_user ,
                 'password' => $password_user , 
-                'name' => $name_user ,   
-                'tlp' => $tlp_user ,
-                'address' => $address_user ,
-                'key' => $api_key_user ,
-                'hit' => $hit    
+                'name' => $nama_user ,   
+                'tlp' => $kontak_user ,
+                'tgl_gabung' => date_format(date_create($tgl_bergabung_user),"d-m-Y") ,
+                'key' => $api_key_user     
             );
 
             array_push($user_arr['data'], $user_item);
         }
 
-        echo json_encode($user_arr);
+        echo json_encode($user_arr, JSON_PRETTY_PRINT);
     }else {
         echo json_encode(
             array('message' => 'No User Found')
