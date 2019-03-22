@@ -1,0 +1,22 @@
+#Booking List
+
+SELECT
+    id_lapangan, harga_lapangan
+FROM
+    table_lapangan
+WHERE
+    id_lapangan NOT IN (
+        SELECT
+            table_lapangan.id_lapangan
+        FROM
+            table_lapangan
+        LEFT OUTER JOIN
+            table_booking ON table_booking.id_lapangan = table_lapangan.id_lapangan
+        WHERE
+            table_booking.tgl_booking = '2019-03-15'
+        AND
+            table_booking.jam_booking = '16:00'
+    )
+ORDER BY
+    harga_lapangan
+ASC

@@ -24,7 +24,7 @@
             $lapangan_item = array(
                 'id' => $id_lapangan ,
                 'id_mitra' => $id_mitra ,
-                'harga_lapagan' => $harga_lapangan , 
+                'harga_lapangan' => $harga_lapangan , 
                 'foto_lapangan' => $foto_lapangan ,   
                 'nama_lapangan' => $nama_lapangan            
             );
