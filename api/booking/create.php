@@ -12,17 +12,17 @@
     $db = $database->connect();
 
     $booking = new Booking($db);
-    $data = json_decode(file_get_contents("php://input"));
+    // $data = json_decode(file_get_contents("php://input"));
 
-    $booking->id_booking = $data->id_booking;
-    $booking->id_mitra = $data->id_mitra;
-    $booking->id_lapangan = $data->id_lapangan;
-    $booking->id_user = $data->id_user;
-    $booking->harga_lapangan = $data->harga_lapangan;
-    $booking->jumlah_jam = $data->jumlah_jam;
-    $booking->tgl_booking = $data->tgl_booking;
-    $booking->jam_booking = $data->jam_booking;
-    $booking->status_booking = $data->status_booking;
+    $booking->id_booking = $_POST['id_booking'];
+    $booking->id_mitra = $_POST['id_mitra'];
+    $booking->id_lapangan = $_POST['id_lapangan'];
+    $booking->id_user = $_POST['id_user'];
+    $booking->harga_lapangan = $_POST['harga_lapangan'];
+    $booking->jumlah_jam = $_POST['jumlah_jam'];
+    $booking->tgl_booking = $_POST['tgl_booking'];
+    $booking->jam_booking = $_POST['jam_booking'];
+    $booking->status_booking = $_POST['status_booking'];
 
     // Create Booking
     if ($booking->create()) {

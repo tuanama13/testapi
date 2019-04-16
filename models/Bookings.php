@@ -44,6 +44,10 @@
 					        LEFT OUTER JOIN
 					            table_booking ON table_booking.id_lapangan = table_lapangan.id_lapangan
 					        WHERE
+					        	table_booking.status_booking = "pending"
+					        OR
+					        	table_booking.status_booking = "Berhasil"
+					        AND
 					            table_booking.tgl_booking = ?
 					        AND
 					            table_booking.jam_booking = ?
@@ -58,8 +62,16 @@
             $stmt->execute();
 
             return $stmt;
+            // $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            // $this->tgl_booking = $row['tgl_booking'];
+            // $this->jam_booking = $row['jam_booking'];
+            // $this->id_lapangan = $row['id_lapangan'];
+            // $this->harga_lapangan = $row['harga_lapangan'];
+            // // $this->foto_lapangan = $row['foto_lapangan'];
+            // // $this->nama_lapangan = $row['nama_lapangan'];
         }
+
         public function create()
         {
             $query = 'INSERT INTO table_booking 
@@ -106,5 +118,16 @@
             printf("Error: %s.\n", $stmt->execute());
  
             return false;
+        }
+
+        public function read_booking_history()
+        {
+            $query = 'SELECT table_booking.id_booking, table_booking.id_mitra, table_mitra.nama_mitra, table_booking.id_lapangan, table_lapangan.nama_lapangan,table_booking.id_user, table_booking.harga_lapangan, table_booking.jumlah_jam, table_booking.jumlah_jam, table_booking.tgl_booking, table_booking.jam_booking, table_booking.status_booking FROM table_booking JOIN table_mitra USING(id_mitra) JOIN table_lapangan USING(id_lapangan) WHERE id_user = ? ORDER BY id_booking DESC';
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $this->id_user);
+            $stmt->execute();
+
+            return $stmt;
         }
 	}

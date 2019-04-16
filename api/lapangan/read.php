@@ -16,6 +16,7 @@
 
     if ($num > 0) {
         $lapangan_arr = array();
+        $booking_arr['value'] = 'lapangan';
         $lapangan_arr['data'] = array();
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
