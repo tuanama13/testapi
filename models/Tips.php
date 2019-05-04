@@ -11,7 +11,7 @@
       private $conn;
       public $id_tips;
       public $img_tips;
-      public $tgl_tips_tips;
+      public $tgl_post_tips;
       public $judul_tips;
       public $isi_tips;
 
